@@ -27,7 +27,7 @@ export default function Form({ submitFunction }) {
             [field.name]: value
         })
     }
-
+    // test 
     function submitForm(event) {
         event.preventDefault()
         submitFunction(product)
