@@ -3,6 +3,8 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import GlobalStyle from './GlobalStyles';
 
+import isValidProduct from './lib/isValid'
+
 export default function Form({ submitFunction }) {
 
     const initialProduct = {
@@ -27,11 +29,15 @@ export default function Form({ submitFunction }) {
             [field.name]: value
         })
     }
-    // test 
+
     function submitForm(event) {
-        event.preventDefault()
-        submitFunction(product)
-        setProduct(initialProduct)
+        event.preventDefault();
+        if (isValidProduct(product)) {
+            submitFunction(product)
+            setProduct(initialProduct);
+        } else {
+            alert('Error in Form!');
+        }
     }
 
     return (
@@ -44,7 +50,7 @@ export default function Form({ submitFunction }) {
             </section>
             <PriceBox>
                 <label> Price
-          <input type="number" name="price" onChange={eventHandler} value={product.price} />
+          <input type="text" name="price" onChange={eventHandler} value={product.price} />
                 </label>
                 <label> Currency
           <input type="text" name="currency" onChange={eventHandler} value={product.currency} />
